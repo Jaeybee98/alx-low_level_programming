@@ -7,29 +7,28 @@
 
 void print_number(int n)
 {
-	unsigned int tens, digit, positive = n;
-	double t_beg = 1;
+	int copy, nth, size = 1, ones = n % 10;
 
-	if (n == 0)
-		_putchar('0');
-	else
+	n /= 10;
+	copy = n;
+	if (ones < 0)
 	{
-		if (n < 0)
+		ones *= -1, copy *= -1, n *= -1;
+		_putchar('-');
+	}
+	if (copy > 0)
+	{
+		while (copy / 10 != 0)
 		{
-			positive = n * -1;
-			_putchar('-');
+			copy /= 10, size *= 10;
 		}
-
-		while (t_beg <= positive)
-			t_beg *= 10;
-		tens = t_beg / 10;
-
-		while (tens >= 1)
+		while (size > 0)
 		{
-			digit = positive / tens;
-			_putchar(digit + '0');
-			positive = (positive - (tens * digit));
-			tens /= 10;
+			nth = n / size;
+			_putchar('0' + nth);
+			n -= nth * size;
+			size /= 10;
 		}
 	}
+	_putchar('0' + ones);
 }
